@@ -1,0 +1,89 @@
+'''
+Brick Breakers Functions
+Nathan Tang
+19/04/25
+'''
+
+import pygame
+
+class myClass:
+    def __init__(self, x = 0, y = 0):
+        self.x = x
+        self.y = y
+        self.pos = (self.x, self.y)
+        self.xDir = 1
+        self.yDir = 1
+        self. surface = pygame.Surface((0, 0), pygame.SRCALPHA, 32)
+        self.red = 0
+        self.green = 0
+        self.blue = 0
+        self.color = (self.red, self.green, self.blue)
+
+    def getSurface(self):
+        return self.surface
+
+    def getPos(self):
+        return self.pos
+
+    def setColor(self, color = (0, 0, 0)):
+        self.red = color[0]
+        self.green = color[1]
+        self.blue = color[2]
+        self.color = (self.red, self.green, self.blue)
+        return self.color
+
+
+
+class text(myClass):
+    def __init__(self, content, font = 'Arial', fontSize = 24):
+        myClass.__init__(self)
+        self.fontFamily = font
+        self.fontSize = fontSize
+        self.font = pygame.font.SysFont(self.fontFamily, self.fontSize)
+        self.content = content
+        self.surface = self.font.render(self.content, 1, self.color)
+
+    def setColor(self, color = (0, 0, 0)):
+        myClass.setColor(self, color)
+        self.surface = self.font.render(self.content, 1, self.color)
+
+    def getText(self):
+        return myClass.getSurface(self)
+        
+
+
+class box(myClass):
+    def __init__(self, width, height, x = 0, y = 0):
+        myClass.__init__(self, x, y)
+        self.width = width
+        self.height = height
+        self.dim = (self.width, self.height)
+        self.surface = pygame.Surface(self.dim, pygame.SRCALPHA, 32)
+        self.surface.fill(self.color)
+        
+    def setColor(self, color):
+        myClass.setColor(self, color)
+        self.surface.fill(self.color)
+
+    def moveBox(self, speed = (1, 1) ):
+        self.x += (self.xDir*speed[0])
+        self.y += (self.yDir*speed[1])
+        self.pos = (self.x, self.y)
+
+    def getBox(self):
+        return myClass.getSurface(self)
+
+
+
+class mySprite(myClass):
+    def __init__(self, fileName):
+        myClass.__init__(self)
+        self.surface = pygame.image.load(fileName).convert_alpha()
+
+
+
+def getSpriteCollision(sprite1, sprite2):
+    if sprite2.getX() <= sprite1.getX() + sprite1.getWidth() <=  sprite2.getX() + sprite2.getWidth() + sprite1.getWidth() and sprite2.getY() <= sprite1.getY() + sprite1.getHeight() <= sprite2.getY() + sprite2.getHeight() + sprite1.getHeight():
+        return True
+    else:
+        return False
