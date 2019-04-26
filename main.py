@@ -11,7 +11,7 @@ pygame.init() # Loads the pygame module commands in the program
 
 # Display Variables
 TITLE = 'Brick Breakers' # Appears in the window title
-FPS = 60 # Frames per second
+FPS = 120 # Frames per second
 WIDTH = 800
 HEIGHT = 600
 SCREENDIM = (WIDTH, HEIGHT)
@@ -40,14 +40,28 @@ clock = pygame.time.Clock() # Starts a clock object to measure time
 # Background image
 stars = []
 for i in range(200):
-    stars.append(functions.box(2, 1, random.randrange(0, WIDTH), random.randrange(0, HEIGHT)))
+    stars.append(functions.box(2, 1, random.randrange(0, WIDTH), random.randrange(50, HEIGHT)))
 for i in stars:
     i.setColor(WHITE)
 
 
 
+# Invisible walls
+topWall = functions.box(800, 1, 0, 50)
+bottomWall = functions.box(800, 1, 0, 599)
+leftWall = functions.box(1, 550, 0, 50)
+rightWall = functions.box(1, 550, 799, 50)
 
 
+# Logo
+logo = functions.text("BRICK BREAKER", font = 'Arial Black', fontSize=50)
+logo.setColor(WHITE)
+logo.setPos(WIDTH/2 - logo.getText().get_width() / 2, -10)
+
+# Paddle
+paddle = functions.box(75, 10)
+paddle.setPos(WIDTH/2 - paddle.getBox().get_width() / 2, HEIGHT - paddle.getBox().get_height() - 5)
+paddle.setColor((0, 200, 100))
 
 # CODE #
 
@@ -61,6 +75,14 @@ while True:
     for i in stars:
         screen.blit(i.getBox(), i.getPos())
 
+
+    pressedKeys = pygame.key.get_pressed() # Check for key presses
+
+    screen.blit(logo.getText(), logo.getPos())
+    screen.blit(paddle.getBox(), paddle.getPos())
+    paddle.keyMove(pressedKeys)
+    if paddle.x <= leftWall.x or (paddle.x + paddle.getBox().get_width()) >= rightWall.x:
+        print("stop")
 
     clock.tick(FPS) # Pause the game until the FPS time is reached
     pygame.display.flip() # Update the screen with changes

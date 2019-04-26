@@ -31,6 +31,12 @@ class myClass:
         self.blue = color[2]
         self.color = (self.red, self.green, self.blue)
         return self.color
+    
+    def setPos(self, x, y):
+        self.x = x
+        self.y = y
+        self.pos = (self.x, self.y)
+        return self.pos
 
 
 
@@ -72,6 +78,18 @@ class box(myClass):
 
     def getBox(self):
         return myClass.getSurface(self)
+
+    def keyMove(self, keyPress, speed = 10):
+        # if keyPress[pygame.K_UP]:
+        #     self.y -= speed
+        # if keyPress[pygame.K_DOWN]:
+        #     self.y += speed
+        if keyPress[pygame.K_LEFT]:
+            self.x -= speed
+        if keyPress[pygame.K_RIGHT]:
+            self.x += speed
+
+        self.pos = (self.x, self.y)
 
 
 
