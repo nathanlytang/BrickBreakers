@@ -89,6 +89,7 @@ while True:
     # pygame.draw.circle(screen, WHITE, [ball.x, ball.y], ball.width/2)
     # screen.blit(ball.getBall(), ball.getPos())
     screen.blit(ball.getBox(), ball.getPos())
+    
 
     # Ball movement
     ball.moveBox((0.5, -1))
@@ -100,10 +101,14 @@ while True:
         ball.yDir = -1
     elif ball.y + ball.getBox().get_height() >= paddle.y and ball.x + ball.getBox().get_width() >= paddle.x and ball.x <= paddle.x + paddle.getBox().get_width(): # Paddle
         ball.yDir = 1
-    elif ball.y + ball.getBox().get_height() >= bottomWall.y: # Bottom wall
+    elif ball.y + ball.getBox().get_height() >= bottomWall.y: # If crash Bottom wall
         ball.xDir = 0
         ball.yDir = 0
-    
+        # Game over
+        gameOverText, escMenu = functions.gameOver(WIDTH, HEIGHT, WHITE)
+        screen.blit(gameOverText.getText(), gameOverText.getPos())
+        screen.blit(escMenu.getText(), escMenu.getPos())
+
     # Paddle movement
     paddle.keyMove(pressedKeys)
     if paddle.x <= leftWall.x:
@@ -114,3 +119,11 @@ while True:
     clock.tick(FPS) # Pause the game until the FPS time is reached
     pygame.display.flip() # Update the screen with changes
 pygame.quit()
+
+
+
+# TODO:
+# 1. Lives
+# 2. Boxes
+# 3. Menu
+# 4. Accelerated collision

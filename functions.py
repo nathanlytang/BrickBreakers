@@ -140,12 +140,13 @@ def getSpriteCollision(sprite1, sprite2):
     else:
         return False
 
-def hitBorder(box):
-    if box.x > WIDTH - box.width:
-        return True
-    if box.x < 0:
-        return True
-    if box.y > HEIGHT - box.height:
-        return True
-    if box.y < 0:
-        return True
+def gameOver(WIDTH, HEIGHT, color):
+    gameOverText = text("GAME OVER", "Arial Black", 80)
+    gameOverText.setColor(color)
+    gameOverText.setPos(WIDTH/2 - gameOverText.getText().get_width() / 2, HEIGHT/2 - gameOverText.getText().get_height())
+
+    escMenu = text("Press ESC to return to the menu", "Arial Black", 20)
+    escMenu.setColor(color)
+    escMenu.setPos(WIDTH/2 - escMenu.getText().get_width() / 2, HEIGHT * (3/4))
+    
+    return gameOverText, escMenu
