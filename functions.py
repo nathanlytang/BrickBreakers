@@ -91,6 +91,40 @@ class box(myClass):
 
         self.pos = (self.x, self.y)
 
+    def getX(self):
+        return self.x
+
+    def getY(self):
+        return self.y
+        
+    def getWidth(self):
+        return self.width
+
+    def getHeight(self):
+        return self.height
+
+
+
+# class ball(myClass):
+#     def __init__(self, width, height, x = 0, y = 0):
+#         myClass.__init__(self, x, y)
+#         self.width = width
+#         self.height = height
+#         self.dim = (self.width, self.height)
+#         self.surface = pygame.Surface(self.dim, pygame.SRCALPHA, 32)
+#         self.surface.fill(self.color)
+
+#     def setColor(self, color):
+#         myClass.setColor(self, color)
+#         self.surface.fill(self.color)
+
+#     def moevBall(self, speed = (1, 1) ):
+#         self.x += (self.xDir*speed[0])
+#         self.y += (self.yDir*speed[1])
+#         self.pos = (self.x, self.y)
+
+#     def getBall(self):
+#         return myClass.getSurface(self)
 
 
 class mySprite(myClass):
@@ -105,3 +139,13 @@ def getSpriteCollision(sprite1, sprite2):
         return True
     else:
         return False
+
+def hitBorder(box):
+    if box.x > WIDTH - box.width:
+        return True
+    if box.x < 0:
+        return True
+    if box.y > HEIGHT - box.height:
+        return True
+    if box.y < 0:
+        return True

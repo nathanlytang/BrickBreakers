@@ -63,6 +63,12 @@ paddle = functions.box(75, 10)
 paddle.setPos(WIDTH/2 - paddle.getBox().get_width() / 2, HEIGHT - paddle.getBox().get_height() - 5)
 paddle.setColor((0, 200, 100))
 
+# Ball
+# ball = functions.ball(50, 50, 100, 100)
+ball = functions.box(20, 20)
+ball.setPos(WIDTH/2 - ball.getBox().get_width() / 2, HEIGHT - paddle.getBox().get_height() - ball.getBox().get_height() - 5)
+ball.setColor((WHITE))
+
 # CODE #
 
 while True:
@@ -80,9 +86,30 @@ while True:
 
     screen.blit(logo.getText(), logo.getPos())
     screen.blit(paddle.getBox(), paddle.getPos())
+    # pygame.draw.circle(screen, WHITE, [ball.x, ball.y], ball.width/2)
+    # screen.blit(ball.getBall(), ball.getPos())
+    screen.blit(ball.getBox(), ball.getPos())
+
+    # Ball movement
+    ball.moveBox((0.5, -1))
+    if ball.x <= leftWall.x: # Left wall
+        ball.xDir = 1
+    if ball.x + ball.getBox().get_width() >= rightWall.x: # Right wall
+        ball.xDir = -1
+    elif ball.y <= topWall.y: # Top wall
+        ball.yDir = -1
+    elif ball.y + ball.getBox().get_height() >= paddle.y and ball.x + ball.getBox().get_width() >= paddle.x and ball.x <= paddle.x + paddle.getBox().get_width(): # Paddle
+        ball.yDir = 1
+    elif ball.y + ball.getBox().get_height() >= bottomWall.y: # Bottom wall
+        ball.xDir = 0
+        ball.yDir = 0
+    
+    # Paddle movement
     paddle.keyMove(pressedKeys)
-    if paddle.x <= leftWall.x or (paddle.x + paddle.getBox().get_width()) >= rightWall.x:
-        print("stop")
+    if paddle.x <= leftWall.x:
+        paddle.x = 0
+    if (paddle.x + paddle.getBox().get_width()) >= rightWall.x:
+        paddle.x = 800 - paddle.getBox().get_width()
 
     clock.tick(FPS) # Pause the game until the FPS time is reached
     pygame.display.flip() # Update the screen with changes
