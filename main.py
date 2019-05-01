@@ -68,6 +68,15 @@ paddle.setColor((0, 200, 100))
 ball = functions.box(20, 20)
 ball.setPos(WIDTH/2 - ball.getBox().get_width() / 2, HEIGHT - paddle.getBox().get_height() - ball.getBox().get_height() - 5)
 ball.setColor((WHITE))
+# Random ball movement - not working
+# ballStartMove = (round(random.uniform(-2, 2), 2), round(random.uniform(0, 2), 2)) # (-0.5, 1)
+# print(ballStartMove)
+
+# Blocks
+blocks = []
+# for rows in range(6):
+#     for columns in range 10:
+#         blocks = functions.box(50, 20, ????) Need to figure out x and y
 
 # CODE #
 
@@ -92,7 +101,7 @@ while True:
     
 
     # Ball movement
-    ball.moveBox((0.5, -1))
+    ball.moveBox((0.5,-1))
     if ball.x <= leftWall.x: # Left wall
         ball.xDir = 1
     if ball.x + ball.getBox().get_width() >= rightWall.x: # Right wall
