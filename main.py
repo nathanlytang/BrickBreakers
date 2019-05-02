@@ -68,9 +68,11 @@ paddle.setColor((0, 200, 100))
 ball = functions.box(20, 20)
 ball.setPos(WIDTH/2 - ball.getBox().get_width() / 2, HEIGHT - paddle.getBox().get_height() - ball.getBox().get_height() - 5)
 ball.setColor((WHITE))
-# Random ball movement - not working
-# ballStartMove = (round(random.uniform(-2, 2), 2), round(random.uniform(0, 2), 2)) # (-0.5, 1)
-# print(ballStartMove)
+# Random ball movement
+ballStartMove = (round(random.uniform(-2, 2), 1), round(random.uniform(-2, -1), 1)) # (-0.5, 1)
+ball.xDir = ballStartMove[0]
+ball.yDir = ballStartMove[1]
+print(ballStartMove)
 
 # Blocks
 blocks = []
@@ -101,15 +103,15 @@ while True:
     
 
     # Ball movement
-    ball.moveBox((0.5,-1))
+    ball.moveBox((1, 1))
     if ball.x <= leftWall.x: # Left wall
-        ball.xDir = 1
+        ball.xDir *= -1
     if ball.x + ball.getBox().get_width() >= rightWall.x: # Right wall
-        ball.xDir = -1
+        ball.xDir *= -1
     elif ball.y <= topWall.y: # Top wall
-        ball.yDir = -1
+        ball.yDir *= -1
     elif ball.y + ball.getBox().get_height() >= paddle.y and ball.x + ball.getBox().get_width() >= paddle.x and ball.x <= paddle.x + paddle.getBox().get_width(): # Paddle
-        ball.yDir = 1
+        ball.yDir *= -1
     elif ball.y + ball.getBox().get_height() >= bottomWall.y: # If crash Bottom wall
         ball.xDir = 0
         ball.yDir = 0
