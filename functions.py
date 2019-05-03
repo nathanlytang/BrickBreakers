@@ -53,6 +53,10 @@ class text(myClass):
         myClass.setColor(self, color)
         self.surface = self.font.render(self.content, 1, self.color)
 
+    def setText(self, content):
+        self.content = content
+        self.surface = self.font.render(self.content, 1, self.color)
+
     def getText(self):
         return myClass.getSurface(self)
         

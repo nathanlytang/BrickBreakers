@@ -26,9 +26,11 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 ORANGE = (255, 102, 0)
+ORANGEYELLOW = (255, 144, 0)
 PURPLE = (150, 0, 255)
 PINK = (255, 0, 150)
 colors = (WHITE, BROWN, RED, GREEN, BLUE, YELLOW, ORANGE, PURPLE, PINK)
+blockColors = (RED, ORANGE, ORANGEYELLOW, YELLOW, GREEN, BLUE)
 
 # Create the window
 screen = pygame.display.set_mode(SCREENDIM) # Creates the main surface where all other assets are placed
@@ -74,17 +76,29 @@ ball.xDir = ballStartMove[0]
 ball.yDir = ballStartMove[1]
 print(ballStartMove)
 
+# Score
+score = functions.text('Score: 0', 'Arial Bold', 25)
+score.setColor(WHITE)
+score.setPos(10, 10)
+scoreVar = 0
+
+# livesVar
+lives = functions.text('Lives: 3', 'Arial Bold', 25)
+lives.setColor(WHITE)
+lives.setPos(10, 30)
+livesVar = 3
+
 # Blocks
 blocks = []  
 y = 80
 for rows in range(6):
-    x = 13
-    for columns in range(9):
-        block = functions.box(70, 30, x, y)
-        block.setColor(random.choice(colors))
+    x = 0
+    for columns in range(10):
+        block = functions.box(80, 30, x, y)
+        block.setColor(blockColors[rows])
         blocks.append(block)
-        x += 88
-    y += 50
+        x += block.getBox().get_width()
+    y += block.getBox().get_height()
 
 
 # CODE #
@@ -103,6 +117,8 @@ while True:
     pressedKeys = pygame.key.get_pressed() # Check for key presses
 
     screen.blit(logo.getText(), logo.getPos())
+    screen.blit(score.getText(), score.getPos())
+    screen.blit(lives.getText(), lives.getPos())
     screen.blit(paddle.getBox(), paddle.getPos())
     # pygame.draw.circle(screen, WHITE, [ball.x, ball.y], ball.width/2)
     # screen.blit(ball.getBall(), ball.getPos())
@@ -122,12 +138,18 @@ while True:
     elif ball.y + ball.getBox().get_height() >= paddle.y and ball.x + ball.getBox().get_width() >= paddle.x and ball.x <= paddle.x + paddle.getBox().get_width(): # Paddle
         ball.yDir *= -1
     elif ball.y + ball.getBox().get_height() >= bottomWall.y: # If crash Bottom wall
-        ball.xDir = 0
-        ball.yDir = 0
-        # Game over
-        gameOverText, escMenu = functions.gameOver(WIDTH, HEIGHT, WHITE)
-        screen.blit(gameOverText.getText(), gameOverText.getPos())
-        screen.blit(escMenu.getText(), escMenu.getPos())
+        if livesVar > 0:
+            livesVar -= 1
+            lives.setText('Lives: %s' % livesVar)
+            ball.yDir *= -1
+        elif livesVar == 0:
+            ball.xDir = 0
+            ball.yDir = 0
+            # Game over
+            gameOverText, escMenu = functions.gameOver(WIDTH, HEIGHT, WHITE)
+            screen.blit(gameOverText.getText(), gameOverText.getPos())
+            screen.blit(escMenu.getText(), escMenu.getPos())
+            
 
     # Paddle movement
     paddle.keyMove(pressedKeys, 6)
@@ -136,12 +158,15 @@ while True:
     if (paddle.x + paddle.getBox().get_width()) >= rightWall.x:
         paddle.x = 800 - paddle.getBox().get_width()
 
+    
 
     # Ball-brick collisions
     for i in range(len(blocks)):
         if functions.getSpriteCollision(ball, blocks[i]): # Change block variable
             blocks.pop(i)
             ball.yDir *= -1
+            scoreVar += 5 # Add 5 to score
+            score.setText('Score: %s' % scoreVar)
             break
 
 
@@ -152,7 +177,7 @@ pygame.quit()
 
 
 # TODO:
-# 1. Lives
+# 1. livesVar
 # 2. Boxes
 # 3. Menu
 # 4. Accelerated collision
