@@ -59,7 +59,7 @@ logo.setColor(WHITE)
 logo.setPos(WIDTH/2 - logo.getText().get_width() / 2, -10)
 
 # Paddle
-paddle = functions.box(75, 10)
+paddle = functions.box(150, 10)
 paddle.setPos(WIDTH/2 - paddle.getBox().get_width() / 2, HEIGHT - paddle.getBox().get_height() - 5)
 paddle.setColor((0, 200, 100))
 
@@ -75,10 +75,17 @@ ball.yDir = ballStartMove[1]
 print(ballStartMove)
 
 # Blocks
-blocks = []
-# for rows in range(6):
-#     for columns in range 10:
-#         blocks = functions.box(50, 20, ????) Need to figure out x and y
+blocks = []  
+y = 80
+for rows in range(6):
+    x = 13
+    for columns in range(9):
+        block = functions.box(70, 30, x, y)
+        block.setColor(random.choice(colors))
+        blocks.append(block)
+        x += 88
+    y += 50
+
 
 # CODE #
 
@@ -100,13 +107,15 @@ while True:
     # pygame.draw.circle(screen, WHITE, [ball.x, ball.y], ball.width/2)
     # screen.blit(ball.getBall(), ball.getPos())
     screen.blit(ball.getBox(), ball.getPos())
+    for i in blocks:
+        screen.blit(i.getBox(), i.getPos())
     
 
     # Ball movement
     ball.moveBox((1, 1))
     if ball.x <= leftWall.x: # Left wall
         ball.xDir *= -1
-    if ball.x + ball.getBox().get_width() >= rightWall.x: # Right wall
+    elif ball.x + ball.getBox().get_width() >= rightWall.x: # Right wall
         ball.xDir *= -1
     elif ball.y <= topWall.y: # Top wall
         ball.yDir *= -1
@@ -121,11 +130,20 @@ while True:
         screen.blit(escMenu.getText(), escMenu.getPos())
 
     # Paddle movement
-    paddle.keyMove(pressedKeys)
+    paddle.keyMove(pressedKeys, 6)
     if paddle.x <= leftWall.x:
         paddle.x = 0
     if (paddle.x + paddle.getBox().get_width()) >= rightWall.x:
         paddle.x = 800 - paddle.getBox().get_width()
+
+
+    # Ball-brick collisions
+    for i in range(len(blocks)):
+        if functions.getSpriteCollision(ball, blocks[i]): # Change block variable
+            blocks.pop(i)
+            ball.yDir *= -1
+            break
+
 
     clock.tick(FPS) # Pause the game until the FPS time is reached
     pygame.display.flip() # Update the screen with changes
