@@ -131,12 +131,6 @@ class box(myClass):
 #         return myClass.getSurface(self)
 
 
-class mySprite(myClass):
-    def __init__(self, fileName):
-        myClass.__init__(self)
-        self.surface = pygame.image.load(fileName).convert_alpha()
-
-
 
 def getSpriteCollision(sprite1, sprite2):
     if sprite2.getX() <= sprite1.getX() + sprite1.getWidth() <=  sprite2.getX() + sprite2.getWidth() + sprite1.getWidth() and sprite2.getY() <= sprite1.getY() + sprite1.getHeight() <= sprite2.getY() + sprite2.getHeight() + sprite1.getHeight():
@@ -154,3 +148,10 @@ def gameOver(WIDTH, HEIGHT, color):
     escMenu.setPos(WIDTH/2 - escMenu.getText().get_width() / 2, HEIGHT * (3/4))
     
     return gameOverText, escMenu
+
+def nextLevel(WIDTH, HEIGHT, color):
+    nextLevelText = text("LEVEL COMPLETE", "Arial Black", 60)
+    nextLevelText.setColor(color)
+    nextLevelText.setPos(WIDTH/2 - nextLevelText.getText().get_width() / 2, HEIGHT/2 - nextLevelText.getText().get_height())
+
+    return nextLevelText
