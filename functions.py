@@ -108,30 +108,6 @@ class box(myClass):
         return self.height
 
 
-
-# class ball(myClass):
-#     def __init__(self, width, height, x = 0, y = 0):
-#         myClass.__init__(self, x, y)
-#         self.width = width
-#         self.height = height
-#         self.dim = (self.width, self.height)
-#         self.surface = pygame.Surface(self.dim, pygame.SRCALPHA, 32)
-#         self.surface.fill(self.color)
-
-#     def setColor(self, color):
-#         myClass.setColor(self, color)
-#         self.surface.fill(self.color)
-
-#     def moevBall(self, speed = (1, 1) ):
-#         self.x += (self.xDir*speed[0])
-#         self.y += (self.yDir*speed[1])
-#         self.pos = (self.x, self.y)
-
-#     def getBall(self):
-#         return myClass.getSurface(self)
-
-
-
 def getSpriteCollision(sprite1, sprite2):
     if sprite2.getX() <= sprite1.getX() + sprite1.getWidth() <=  sprite2.getX() + sprite2.getWidth() + sprite1.getWidth() and sprite2.getY() <= sprite1.getY() + sprite1.getHeight() <= sprite2.getY() + sprite2.getHeight() + sprite1.getHeight():
         return True
@@ -154,4 +130,8 @@ def nextLevel(WIDTH, HEIGHT, color):
     nextLevelText.setColor(color)
     nextLevelText.setPos(WIDTH/2 - nextLevelText.getText().get_width() / 2, HEIGHT/2 - nextLevelText.getText().get_height())
 
-    return nextLevelText
+    spaceCont = text("Press SPACE to continue", "Arial Black", 20)
+    spaceCont.setColor(color)
+    spaceCont.setPos(WIDTH/2 - spaceCont.getText().get_width() / 2, HEIGHT * (3/4))
+
+    return nextLevelText, spaceCont

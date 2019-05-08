@@ -73,7 +73,7 @@ def levelVars():
     ball.setPos(WIDTH/2 - ball.getBox().get_width() / 2, HEIGHT - paddle.getBox().get_height() - ball.getBox().get_height() - 5)
     ball.setColor((WHITE))
     # Random ball movement
-    ballStartMove = (round(random.uniform(-2, 2), 1), round(random.uniform(-2, -1), 1)) # (-0.5, 1)
+    ballStartMove = (round(random.uniform(-2, 2), 1), round(random.uniform(-2, -1), 1)) # (-1.3, -1.6)
     ball.xDir = ballStartMove[0]
     ball.yDir = ballStartMove[1]
     print(ballStartMove)
@@ -118,12 +118,13 @@ play = True
 while play:
     paddle, ball, blocks, block = levelVars()
     levels = True
-    levelNum += 1
+    levelNum += 1 # Upgrade level
     level.setText('Level: %s' % levelNum)
     
+    # Main level
     while levels:
-        for event in pygame.event.get(): # Returns all inputs and triggers into the array
-            if event.type == pygame.QUIT: # If the window close button is clicked
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
                 sys.exit()
                 
         # Background
@@ -147,7 +148,7 @@ while play:
         
 
         # Ball movement
-        ball.moveBox((1, 1))
+        ball.moveBox((1, 3))
         if ball.x <= leftWall.x: # Left wall
             ball.xDir *= -1
         elif ball.x + ball.getBox().get_width() >= rightWall.x: # Right wall
@@ -186,9 +187,9 @@ while play:
 
         if len(blocks) == 0:
             # Next level
-            nextLevelText = functions.nextLevel(WIDTH, HEIGHT, WHITE)
-            nextLevelText.setColor(WHITE)
+            nextLevelText, spaceCont = functions.nextLevel(WIDTH, HEIGHT, WHITE)
             screen.blit(nextLevelText.getText(), nextLevelText.getPos())
+            screen.blit(spaceCont.getText(), spaceCont.getPos())
             levels = False
 
         # Ball-brick collisions
@@ -206,16 +207,22 @@ while play:
         pygame.display.flip() # Update the screen with changes
 
     # Continue program if SPACE is clicked
-    # pressedKeys = pygame.key.get_pressed()
-    # while True:
-    #     try:
-    #         if pressedKeys[pygame.K_SPACE]:
-    #             break
-    #     except:
-    #         pass
+    levelPrompt = True
+    while levelPrompt:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+                
+        pressedKeys = pygame.key.get_pressed()
+        if pressedKeys[pygame.K_SPACE]:
+            print("works")
+            levelPrompt = False
+            break
 
-    time.sleep(3)
-    
+        clock.tick(FPS)
+        pygame.display.flip()    
+
+
 pygame.quit()
 
 
