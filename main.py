@@ -62,6 +62,9 @@ logo.setColor(WHITE)
 logo.setPos(WIDTH/2 - logo.getText().get_width() / 2, -10)
 
 def levelVars():
+    
+    ### NOTE: Paddle and ball are properties of polymorphism
+
     # Paddle
     paddle = functions.box(150, 10)
     paddle.setPos(WIDTH/2 - paddle.getBox().get_width() / 2, HEIGHT - paddle.getBox().get_height() - 5)
@@ -78,6 +81,8 @@ def levelVars():
     ball.yDir = ballStartMove[1]
     print(ballStartMove)
 
+    ### NOTE: Blocks are a property of aggregation
+
     # Blocks
     blocks = []
     y = 80
@@ -92,7 +97,7 @@ def levelVars():
 
     return paddle, ball, blocks, block
 
-
+### NOTE: Score, lives, and levels are properties of abstraction
 
 # Score
 score = functions.text('Score: 0', 'Arial Bold', 25)
@@ -132,9 +137,12 @@ while play:
         for i in stars:
             screen.blit(i.getBox(), i.getPos())
 
+        # Input
 
         pressedKeys = pygame.key.get_pressed() # Check for key presses
 
+        # Output
+        
         screen.blit(logo.getText(), logo.getPos())
         screen.blit(score.getText(), score.getPos())
         screen.blit(lives.getText(), lives.getPos())
@@ -146,6 +154,7 @@ while play:
         for i in blocks:
             screen.blit(i.getBox(), i.getPos())
         
+        # Process
 
         # Ball movement
         ball.moveBox((1, 3))
