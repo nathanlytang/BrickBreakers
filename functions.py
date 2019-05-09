@@ -6,6 +6,8 @@ Nathan Tang
 
 import pygame
 
+### NOTE: The modifier and accessor methods in myClass, text and box classes are properties of encapsulation
+
 class myClass:
     def __init__(self, x = 0, y = 0):
         self.x = x
@@ -119,7 +121,7 @@ def gameOver(WIDTH, HEIGHT, color):
     gameOverText.setColor(color)
     gameOverText.setPos(WIDTH/2 - gameOverText.getText().get_width() / 2, HEIGHT/2 - gameOverText.getText().get_height())
 
-    escMenu = text("Press ESC to return to the menu", "Arial Black", 20)
+    escMenu = text("Press ESC to quit the game", "Arial Black", 20)
     escMenu.setColor(color)
     escMenu.setPos(WIDTH/2 - escMenu.getText().get_width() / 2, HEIGHT * (3/4))
     
