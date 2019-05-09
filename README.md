@@ -13,10 +13,13 @@ Welcome to Brick Breaker!  A game where you are a paddle on its way to smash som
 This game require Python 3.7 or above.
 
 ## Planning
-Below is the UML Table containing the classes used to create the objects in this program.
+Below is the UML Table containing the classes used to create the objects in this program.  The _text_ class and the _box_ class both inherit the _myClass_ class.
+
+
 ![UML TABLE](https://git.mikezhang.ca/n.tang/BrickBreakers/raw/master/images/BrickBreakers-UMLTable.jpg "UML Table")
 
 Below is the flowchart used in the planning of this program.
+
 
 ![Flowchart](https://git.mikezhang.ca/n.tang/BrickBreakers/raw/master/images/BrickBreakers-Flowchart.jpg "Flowchart")
 
