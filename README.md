@@ -14,9 +14,11 @@ This game require Python 3.7 or above.
 
 ## Planning
 Below is the UML Table containing the classes used to create the objects in this program.
-![UML TABLE](https://git.mikezhang.ca/n.tang/BrickBreakers/raw/master/images/BrickBreakers-UMLTable.jpg)
+![UML TABLE](https://git.mikezhang.ca/n.tang/BrickBreakers/raw/master/images/BrickBreakers-UMLTable.jpg "UML Table")
+
 Below is the flowchart used in the planning of this program.
-![Flowchart](https://git.mikezhang.ca/n.tang/BrickBreakers/raw/master/images/BrickBreakers-Flowchart.jpg)
+
+![Flowchart](https://git.mikezhang.ca/n.tang/BrickBreakers/raw/master/images/BrickBreakers-Flowchart.jpg "Flowchart")
 
 ## Special Features
 1. The player has three lives.  Once the player loses all three, the game ends.
