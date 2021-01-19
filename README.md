@@ -15,7 +15,7 @@ This game require Python 3.7 or above.
 ## Planning
 Below is the UML Table containing the classes used to create the objects in this program.  The _text_ class and the _box_ class both inherit the _myClass_ class.
 
-<p align="center"><img src="images/BrickBreakers-UML Table.jpg"></p>
+<p align="center"><img src="images/Brick Breakers-UML Table.jpg"></p>
 
 Below is the flowchart used in the planning of this program.
 
